@@ -140,6 +140,7 @@ if __name__ == "__main__":
         raise(RuntimeError("cannot find model file"))
     # load Keras model
     weight_dims, activation, activation_param, input_dim = get_model_meta(modelfile)
+    input_dim = [None,28,28,1] #TDA
     numlayer = len(weight_dims)
     if args.dataset == "auto":
         if input_dim[2] == 28 or input_dim[2] == "28":
@@ -154,9 +155,11 @@ if __name__ == "__main__":
     # quadratic bound only works for ReLU
     assert ((not args.quad) or activation == "relu")
 
-    config = tf.ConfigProto()
+    #config = tf.ConfigProto()
+    config = tf.compat.v1.ConfigProto() #TDA
     config.gpu_options.allow_growth = True
-    with tf.Session(config=config) as sess:
+    #with tf.Session(config=config) as sess:
+    with tf.compat.v1.Session(config=config) as sess: #TDA
         if args.dataset == "mnist":
             data = MNIST()
             model = NLayerModel(weight_dims[:-1], modelfile, activation=activation, activation_param=activation_param)
@@ -171,10 +174,12 @@ if __name__ == "__main__":
 
         random.seed(args.seed)
         np.random.seed(args.seed)
-        tf.set_random_seed(args.seed)
+        #tf.set_random_seed(args.seed)
+        tf.random.set_seed(args.seed) #TDA
 
         # the weights and bias are saved in lists: weights and bias
         # weights[i-1] gives the ith layer of weight and so on
+        import pdb; pdb.set_trace()
         weights, biases = get_weights_list(model)
         
         inputs, targets, true_labels, true_ids, img_info = generate_data(data, samples=data.test_labels.shape[0], total_images = args.numimage, targeted=targeted, random_and_least_likely = True, force_label = force_label, target_type = target_type, predictor=model.model.predict, start=args.startimage)

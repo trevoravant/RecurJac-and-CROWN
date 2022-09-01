@@ -15,4 +15,4 @@ cifar-10-batches-bin/
 *.npy
 *.mat
 *.zip
-
+*.h5

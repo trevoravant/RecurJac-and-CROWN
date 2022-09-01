@@ -1,4 +1,4 @@
-# I have forked this repo in order to get RecurJac to produce local Lipschitz bounds on my own custom Pytorch networks. Running `$ python test.py` with `orig = True` uncommented to produce the same results in the original README as the `mnist_7layer_relu_1024` model. To get estimates for the custom Pytorch network in `compnet.py`, first run `$ python convert_and_save_pytorch_model.py`, which will generate a .h5 file. Then, run `$ python test.py` with `orig = False` uncommented. The code should still work if you modify the network and corresponding variables in `compnet.py`.
+# I have forked this repo in order to get RecurJac to produce local Lipschitz bounds on my own custom Pytorch networks. Running `$ python test.py` with `orig = True` uncommented will produce the same results in the original README as the `mnist_7layer_relu_1024` model. To get estimates for the custom Pytorch network in `compnet.py`, first run `$ python convert_and_save_pytorch_model.py`, which will generate a .h5 file. Then, run `$ python test.py` with `orig = False` uncommented. The code should still work if you modify the network and corresponding variables in `compnet.py`.
 
 ---
 
